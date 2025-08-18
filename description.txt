@@ -1,0 +1,10 @@
+This app is a data analytics dashboard built with Streamlit.
+First, it lets you upload a CSV file so you can work with your own dataset.
+Once uploaded, it shows you a preview of the data and some basic statistics like averages, counts, and ranges.
+You can then explore the data through different visualizations:
+Histogram for distributions
+Correlation heatmap for relationships between numbers
+Scatterplot to compare two numeric columns
+Boxplot to see how values vary across categories
+The app also lets you filter the data by choosing a column and selecting a value, then it shows only the rows that match. You can even download the filtered dataset as a CSV file.
+Finally, the app has a simple machine learning tool: you can pick one numeric column as the target and some other columns as features, then it trains a linear regression model to predict the target.
