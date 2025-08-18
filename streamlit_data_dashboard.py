@@ -10,7 +10,7 @@ from sklearn.model_selection import train_test_split
 st.set_page_config(page_title="Advanced Data Analytics Dashboard", layout="wide")
 
 # Title and description
-st.title("📊 Advanced Data Analytics Dashboard")
+st.title("Advanced Data Analytics Dashboard")
 st.markdown("Upload a CSV dataset to explore, visualize, and even model your data interactively.")
 
 # File uploader
