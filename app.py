@@ -9,10 +9,6 @@ from sklearn.model_selection import train_test_split
 # Page configuration
 st.set_page_config(page_title="Advanced Data Analytics Dashboard", layout="wide")
 
-# Title and description
-st.title("Advanced Data Analytics Dashboard")
-st.markdown("Upload a CSV dataset to explore, visualize, and even model your data interactively.")
-
 # File uploader
 uploaded_file = st.sidebar.file_uploader("Choose a CSV file", type="csv")
 
@@ -22,7 +18,7 @@ if uploaded_file is not None:
         st.write("### Dataset Preview")
         st.dataframe(df.head())
 
-        # ---- Basic Statistics (with threading) ----
+        #Basic Statistics (with threading)
         st.write("### Basic Statistics")
         stats_container = st.empty()
 
@@ -32,7 +28,7 @@ if uploaded_file is not None:
         thread = threading.Thread(target=compute_summary, args=(df, stats_container))
         thread.start()
 
-        # ---- Visualization Options ----
+        # Visualization Options
         st.write("### Data Visualization")
         columns = df.columns.tolist()
         numeric_cols = df.select_dtypes(include=['float64', 'int64']).columns
@@ -78,7 +74,7 @@ if uploaded_file is not None:
             else:
                 st.warning("Need at least one categorical and one numeric column.")
 
-        # ---- Data Filtering ----
+        #Data Filtering
         st.write("### Filter Data")
         filter_column = st.selectbox("Select column to filter", columns)
         unique_values = df[filter_column].unique()
@@ -90,8 +86,8 @@ if uploaded_file is not None:
         csv = filtered_df.to_csv(index=False).encode('utf-8')
         st.download_button("Download filtered data", data=csv, file_name="filtered_data.csv", mime="text/csv")
 
-        # ---- Machine Learning: Simple Linear Regression ----
-        st.write("### 🔮 Simple Linear Regression Model")
+        # Machine Learning: Simple Linear Regression 
+        st.write("### Simple Linear Regression Model")
         if len(numeric_cols) > 1:
             target = st.selectbox("Select target column", numeric_cols)
             features = st.multiselect("Select feature columns", [c for c in numeric_cols if c != target])
