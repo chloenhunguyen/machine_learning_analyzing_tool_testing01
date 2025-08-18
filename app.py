@@ -5,6 +5,7 @@ import seaborn as sns
 import threading
 from sklearn.linear_model import LinearRegression
 from sklearn.model_selection import train_test_split
+from sklearn.impute import SimpleImputer
 
 # Page configuration
 st.set_page_config(page_title="Advanced Data Analytics Dashboard", layout="wide")
@@ -86,7 +87,7 @@ if uploaded_file is not None:
         csv = filtered_df.to_csv(index=False).encode('utf-8')
         st.download_button("Download filtered data", data=csv, file_name="filtered_data.csv", mime="text/csv")
 
-        # Machine Learning: Simple Linear Regression 
+        # Simple Linear Regression 
         st.write("### Simple Linear Regression Model")
         if len(numeric_cols) > 1:
             target = st.selectbox("Select target column", numeric_cols)
@@ -95,6 +96,12 @@ if uploaded_file is not None:
             if target and features:
                 X = df[features]
                 y = df[target]
+                
+                # Handle missing values 
+                imputer = SimpleImputer(strategy="mean")
+                X = imputer.fit_transform(X)
+                y = y.fillna(y.mean())  # fill NA by mean
+
                 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2)
                 model = LinearRegression().fit(X_train, y_train)
                 score = model.score(X_test, y_test)
